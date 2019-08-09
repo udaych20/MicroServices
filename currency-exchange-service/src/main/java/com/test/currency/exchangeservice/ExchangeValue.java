@@ -18,6 +18,7 @@ public class ExchangeValue {
 	@Column(name="currency_to")
 	private String to;
 	
+	@Column(name="conversion_multiple")
 	private BigDecimal conversionMultiple;
 	
 	private int port;
@@ -71,6 +72,12 @@ public class ExchangeValue {
 
 	public void setPort(int port) {
 		this.port = port;
+	}
+
+	@Override
+	public String toString() {
+		return "ExchangeValue [id=" + id + ", from=" + from + ", to=" + to + ", conversionMultiple="
+				+ conversionMultiple + ", port=" + port + "]";
 	}
 	
 }

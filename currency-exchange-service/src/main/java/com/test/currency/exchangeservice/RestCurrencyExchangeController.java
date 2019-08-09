@@ -19,6 +19,7 @@ public class RestCurrencyExchangeController {
 	public ExchangeValue retriveExchangeValue(@PathVariable String from, @PathVariable String to) {
 		ExchangeValue exchangeValue = repository.findByFromAndTo(from, to);
 		exchangeValue.setPort(Integer.parseInt(environment.getProperty("local.server.port")));
+		System.out.println("Json ---- "+ exchangeValue);
 		return exchangeValue;
 		
 	}
