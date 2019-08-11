@@ -24,7 +24,6 @@ public class ExchangeValue {
 	private int port;
 	
 	public ExchangeValue() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public ExchangeValue(Long id, String from, String to, BigDecimal conversionMultiple) {
