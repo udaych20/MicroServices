@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +15,8 @@ import org.springframework.web.client.RestTemplate;
 
 @RestController
 public class RestCorrencyConverter {
+
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	private CurrencyConversionProxy proxy;
@@ -28,6 +32,8 @@ public class RestCorrencyConverter {
 				"http://localhost:8000/currency-exchange/from/{from}/to/{to}", CurrencyConversionBean.class,
 				uriVriable);
 		CurrencyConversionBean bean = resEntity.getBody();
+		logger.info("CurrencyConversionBean -> {}", bean);
+
 		return new CurrencyConversionBean(bean.getId(), bean.getFrom(), bean.getTo(), bean.getConversionMultiple(),
 				bean.getQuantity(), quantity.multiply(bean.getConversionMultiple()), bean.getPort());
 	}
@@ -37,9 +43,10 @@ public class RestCorrencyConverter {
 			@PathVariable BigDecimal quantity) {
 
 		CurrencyConversionBean bean = proxy.retriveExchangeValue(from, to);
-		System.out.println("from --- "+ from);
-		System.out.println("to --- "+ to);
-		System.out.println("quantity --- "+ quantity);
+		System.out.println("from --- " + from);
+		System.out.println("to --- " + to);
+		System.out.println("quantity --- " + quantity);
+		logger.info("CurrencyConversionBean -> {}", bean);
 		return new CurrencyConversionBean(bean.getId(), from, to, bean.getConversionMultiple(), quantity,
 				quantity.multiply(bean.getConversionMultiple()), bean.getPort());
 	}
